@@ -25,6 +25,11 @@ const GameWindow = struct {
             .window = window,
         };
     }
+    
+    // Default GLFW error handling callback
+    fn errorCallback(error_code: glfw.ErrorCode, description: [:0]const u8) void {
+        std.log.err("glfw: {}: {s}\n", .{ error_code, description });
+    }
 
     pub fn resizeCallback(_: glfw.Window, width: i32, height: i32) void {
         gl.viewport(0, 0, width, height);
@@ -81,10 +86,6 @@ const GameWindow = struct {
     }
 };
 
-// Default GLFW error handling callback
-fn errorCallback(error_code: glfw.ErrorCode, description: [:0]const u8) void {
-    std.log.err("glfw: {}: {s}\n", .{ error_code, description });
-}
 
 
 pub fn main() !void {
